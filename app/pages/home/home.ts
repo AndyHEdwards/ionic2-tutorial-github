@@ -1,30 +1,30 @@
-import { Page, NavController } from 'ionic-angular';
-import { DetailsPage } from '../details/details'
-import { GithubService } from '../../services/github'
+import {Page, NavController} from 'ionic-angular';
+import {GitHubService} from '../../services/github';
+import {DetailsPage} from '../details/details';
 
 @Page({
-  templateUrl: 'build/pages/home/home.html',
-  providers: [GithubService]
+    templateUrl: 'build/pages/home/home.html',
+    providers: [GitHubService]
 })
 export class HomePage {
-  public foundRepos;
-  public username;
+    public foundRepos;
+    public username;
 
-  constructor(private github: GithubService,
-              private nav: NavController){
-  }
+    constructor(private github: GitHubService,
+                private nav: NavController) {
+    }
 
-  getRepos(){
-    this.github.getRepos(this.username).subscribe(
-      data => {
-        this.foundRepos = data.json();
-      },
-      err => console.error(err),
-      () => console.log('getRepos completed')
-    )
-  }
+    getRepos() {
+        this.github.getRepos(this.username).subscribe(
+            data => {
+                this.foundRepos = data.json();
+            },
+            err => console.error(err),
+            () => console.log('getRepos completed')
+        );
+    }
 
-  goToDetails(repo){
-    this.nav.push(DetailsPage, { repo: repo });
-  }
+    goToDetails(repo) {
+        this.nav.push(DetailsPage, { repo: repo });
+    }
 }
